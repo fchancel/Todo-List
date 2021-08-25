@@ -22,3 +22,37 @@
   .input-add-task{
       margin: auto;
   }
+
+.status{
+    border: 1px solid;
+    border-radius: 10px;
+}
+
+.status-grey{
+    border-color: grey;
+    color: grey;
+}
+
+.status-grey:hover{
+    color: white;
+    background-color: grey !important;
+}
+
+.status-yellow{
+    border-color: orange;
+    color: orange;
+}
+
+.status-yellow:hover{
+    color: black;
+    background-color: orange !important;
+}
+.status-green{
+    border-color: green;
+    color: green;
+}
+
+.status-green:hover{
+    color: white;
+    background-color: green !important;
+}

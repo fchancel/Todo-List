@@ -5,6 +5,12 @@ const btnOpenModal = document.querySelector("#btn-open-modal");
 const myModal = document.querySelector("#modal");
 const btnAdd = document.querySelector("#btn-add");
 
+const statusProgress = [
+  ["status-grey", "TODO"],
+  ["status-yellow", "In Progress"],
+  ["status-green", "Complete"],
+];
+
 function addTodo(text) {
   const tr = document.createElement("tr");
   const textTd = document.createElement("td");
@@ -12,8 +18,24 @@ function addTodo(text) {
   textTd.textContent = text;
 
   const statusTd = document.createElement("td");
-  statusTd.className = "center status";
-  statusTd.textContent = "status";
+  statusTd.className = "center";
+
+  const statusBtn = document.createElement("button");
+  statusBtn.setAttribute("data-level", 0);
+  statusBtn.className = "btn status white " + statusProgress[0][0];
+  statusBtn.textContent = statusProgress[0][1];
+  statusBtn.addEventListener("click", () => {
+    let level = Number(statusBtn.dataset.level) + 1;
+    if (level >= statusProgress.length) {
+      level = 0;
+    }
+    statusBtn.dataset.level = level;
+    statusBtn.textContent = statusProgress[statusBtn.dataset.level][1];
+    statusBtn.className =
+      "btn status white " + statusProgress[statusBtn.dataset.level][0];
+  });
+
+  statusTd.append(statusBtn);
 
   const editTd = document.createElement("td");
   editTd.className = "center";
