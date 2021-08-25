@@ -1,46 +1,39 @@
 import "./style.css";
 
+const todoZone = document.querySelector('#todo-zone');
+const btnAdd = document.querySelector('#btn-add');
+const myModal = document.querySelector('#modal');
+const modalContent = document.querySelector('.modal-content');
+function addTodo(text) {
 
-const btnMain = document.querySelector('#btn-main');
-const addBtnZone = document.querySelector('#btn-add-zone');
+    todoZone.innerHTML = `
+        <tr>
+            <td class="center todo">${text}</td>
+            <td class="center status">Finir le todo</td>
+            <td class="center">
+                <button class="btn edit">
+                    <i class="material-icons">edit</i>
+                </button>
+            </td>
+            <td class="center">
+                <button class="btn remove">
+                    <i class="material-icons">delete</i>
+                </button>
+            </td>
+        </tr>`
+}
 
+function modal(contain){
+    console.log('modal');
+    myModal.style.display = "block";
 
-btnMain.addEventListener('click', () => {
-    if (btnMain.dataset.btn === "add"){
-        btnMain.dataset.btn = "remove";
-        btnMain.className = "btn-remove";
-        btnMain.textContent = "x";
-        
-        const divInput = document.createElement("div");
-        divInput.className = "text-center row";
-        divInput.id = "input-zone";
-        addBtnZone.after(divInput);
+}
 
-        var div = document.createElement("div");
-        div.className = "col col-lg-8";
-        divInput.append(div);
+btnAdd.addEventListener('click', modal);
+console.log(btnAdd);
 
-        const inputElt = document.createElement("input");
-        inputElt.type = 'text';
-        inputElt.id = "input-text";
-        inputElt.className = "form-control";
-        div.append(inputElt);
-
-        var div = document.createElement("div");
-        div.className = "col col-lg-2";
-        divInput.append(div)
-        
-        const submitElt = document.createElement("button");
-        submitElt.textContent = "+";
-        submitElt.id = "submit-input";
-        submitElt.className = "col";
-        div.append(submitElt);
-
-    } else {
-        btnMain.dataset.btn = "add";
-        btnMain.className = "btn-add";
-        btnMain.textContent = "+";
-        const divInput = document.querySelector("#input-zone");
-        divInput.remove();
+document.addEventListener('click', (event)=>{
+    if (event.target == myModal){
+        myModal.style.display = "None"
     }
 })

@@ -21,7 +21,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "", "",{"version":3,"sources":[],"names":[],"mappings":"","sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "#btn-main{\n    width: 80px;\n    height: 80px;\n    border-radius: 50%;\n    color: white;\n    font-weight: bold;\n}\n\n.btn-add{\n    border-color: rgb(41, 139, 139);\n    background-color: rgb(41, 139, 139);\n}\n\n.btn-add:hover{\n    background-color: rgb(43, 168, 168);\n    background-color: rgb(43, 168, 168);\n}\n\n.btn-remove{\n    border-color: rgb(177, 43, 43);\n    background-color: rgb(177, 43, 43);\n}\n\n.btn-remove:hover{\n    border-color: rgb(139, 41, 41);\n    background-color: rgb(139, 41, 41);\n}\n\n#input-text{\n    margin: 40px;\n}", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,WAAW;IACX,YAAY;IACZ,kBAAkB;IAClB,YAAY;IACZ,iBAAiB;AACrB;;AAEA;IACI,+BAA+B;IAC/B,mCAAmC;AACvC;;AAEA;IACI,mCAAmC;IACnC,mCAAmC;AACvC;;AAEA;IACI,8BAA8B;IAC9B,kCAAkC;AACtC;;AAEA;IACI,8BAA8B;IAC9B,kCAAkC;AACtC;;AAEA;IACI,YAAY;AAChB","sourcesContent":["#btn-main{\n    width: 80px;\n    height: 80px;\n    border-radius: 50%;\n    color: white;\n    font-weight: bold;\n}\n\n.btn-add{\n    border-color: rgb(41, 139, 139);\n    background-color: rgb(41, 139, 139);\n}\n\n.btn-add:hover{\n    background-color: rgb(43, 168, 168);\n    background-color: rgb(43, 168, 168);\n}\n\n.btn-remove{\n    border-color: rgb(177, 43, 43);\n    background-color: rgb(177, 43, 43);\n}\n\n.btn-remove:hover{\n    border-color: rgb(139, 41, 41);\n    background-color: rgb(139, 41, 41);\n}\n\n#input-text{\n    margin: 40px;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -556,6 +556,43 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ "./src/style.css");
 
+var btnMain = document.querySelector('#btn-main');
+var addBtnZone = document.querySelector('#btn-add-zone');
+btnMain.addEventListener('click', function () {
+  if (btnMain.dataset.btn === "add") {
+    btnMain.dataset.btn = "remove";
+    btnMain.className = "btn-remove";
+    btnMain.textContent = "x";
+    var divInput = document.createElement("div");
+    divInput.className = "text-center row";
+    divInput.id = "input-zone";
+    addBtnZone.after(divInput);
+    var div = document.createElement("div");
+    div.className = "col col-lg-8";
+    divInput.append(div);
+    var inputElt = document.createElement("input");
+    inputElt.type = 'text';
+    inputElt.id = "input-text";
+    inputElt.className = "form-control";
+    div.append(inputElt);
+    var div = document.createElement("div");
+    div.className = "col col-lg-2";
+    divInput.append(div);
+    var submitElt = document.createElement("button");
+    submitElt.textContent = "+";
+    submitElt.id = "submit-input";
+    submitElt.className = "col";
+    div.append(submitElt);
+  } else {
+    btnMain.dataset.btn = "add";
+    btnMain.className = "btn-add";
+    btnMain.textContent = "+";
+
+    var _divInput = document.querySelector("#input-zone");
+
+    _divInput.remove();
+  }
+});
 })();
 
 /******/ })()
