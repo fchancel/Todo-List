@@ -1,31 +1,86 @@
 <!DOCTYPE html>
 <html lang="fr">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
-        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
-
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet"
+    />
     <title>Todo list</title>
-<script defer src="main.bundle.js"></script></head>
+  <script defer src="main.bundle.js"></script></head>
 
-<body>
-    <div class="container">
-        <div class="row">
-            <div class="col col-lg-12">
-                <h1 class="text-center">Todo List</h1>
-            </div>
+  <body>
+    <div class="row">
+      <div id="modal">
+        <div class="col s4 offset-s4 modal-content">
+          <div class="row">
+            <form class="col s10 offset-s1">
+              <div class="row valign-wrapper input-add-task">
+                <div class="input-field col s10">
+                  <i class="material-icons prefix">mode_edit</i>
+                  <textarea
+                    id="input-add"
+                    class="materialize-textarea"
+                    placeholder="Task Name"
+                  ></textarea>
+                </div>
+                <div class="col s2">
+                  <button
+                    class="btn waves-effect waves-light"
+                    type="submit"
+                    name="action"
+                    id="btn-add"
+                  >
+                    Add
+                    <i class="material-icons right">send</i>
+                  </button>
+                </div>
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     </div>
-    <div class="container">
+    <h1>TODO List Demo App</h1>
+    <section>
+      <div class="container">
         <div class="row">
-            <div id="btn-add-zone" class="text-center">
-                <button type="button" id="btn-main" data-btn="add" class="btn-add">+</button>
-            </span>
+          <div class="col s2 offset-s10">
+            <button class="btn" id="btn-open-modal">Add Task</button>
+          </div>
         </div>
-    </div>
-</body>
+      </div>
+      <div class="container">
+        <div class="row">
+          <div class="col s12">
+            <table>
+              <thead>
+                <tr>
+                  <th class="center">Task Name</th>
+                  <th class="center">Status</th>
+                  <th class="center">Edit</th>
+                  <th class="center">Remove</th>
+                </tr>
+              </thead>
 
+              <tbody id="todo-zone">
+                <!-- <tr>
+                    <th class="center">bla</th>
+                    <th class="center"><button data-level="0" class="btn status status-grey white">TODO</button></th>
+                    <th class="center"><button data-level="1" class="btn status status-yellow white">In Progress</button></th>
+                    <th class="center"><button data-level="2" class="btn status status-green white">Complete</button></th> -->
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </body>
 </html>

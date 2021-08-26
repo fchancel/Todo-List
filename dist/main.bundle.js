@@ -21,7 +21,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_cssWithMappingToString_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "#btn-main{\n    width: 80px;\n    height: 80px;\n    border-radius: 50%;\n    color: white;\n    font-weight: bold;\n}\n\n.btn-add{\n    border-color: rgb(41, 139, 139);\n    background-color: rgb(41, 139, 139);\n}\n\n.btn-add:hover{\n    background-color: rgb(43, 168, 168);\n    background-color: rgb(43, 168, 168);\n}\n\n.btn-remove{\n    border-color: rgb(177, 43, 43);\n    background-color: rgb(177, 43, 43);\n}\n\n.btn-remove:hover{\n    border-color: rgb(139, 41, 41);\n    background-color: rgb(139, 41, 41);\n}\n\n#input-text{\n    margin: 40px;\n}", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA;IACI,WAAW;IACX,YAAY;IACZ,kBAAkB;IAClB,YAAY;IACZ,iBAAiB;AACrB;;AAEA;IACI,+BAA+B;IAC/B,mCAAmC;AACvC;;AAEA;IACI,mCAAmC;IACnC,mCAAmC;AACvC;;AAEA;IACI,8BAA8B;IAC9B,kCAAkC;AACtC;;AAEA;IACI,8BAA8B;IAC9B,kCAAkC;AACtC;;AAEA;IACI,YAAY;AAChB","sourcesContent":["#btn-main{\n    width: 80px;\n    height: 80px;\n    border-radius: 50%;\n    color: white;\n    font-weight: bold;\n}\n\n.btn-add{\n    border-color: rgb(41, 139, 139);\n    background-color: rgb(41, 139, 139);\n}\n\n.btn-add:hover{\n    background-color: rgb(43, 168, 168);\n    background-color: rgb(43, 168, 168);\n}\n\n.btn-remove{\n    border-color: rgb(177, 43, 43);\n    background-color: rgb(177, 43, 43);\n}\n\n.btn-remove:hover{\n    border-color: rgb(139, 41, 41);\n    background-color: rgb(139, 41, 41);\n}\n\n#input-text{\n    margin: 40px;\n}"],"sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "/* /* The Modal (background) */\n#modal {\n    display: none; \n    position: fixed; \n    z-index: 1;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100%; \n    /* overflow: auto; */\n    background-color: rgba(0,0,0,0.4); \n  }\n  \n  /* Modal Content/Box */\n  .modal-content {\n    background-color: #fefefe;\n    margin: 15% auto;\n    padding: 20px;\n    border: 1px solid #888;\n  }\n\n  .input-add-task{\n      margin: auto;\n  }\n\n.status{\n    border: 1px solid;\n    border-radius: 10px;\n}\n\n.status-grey{\n    border-color: grey;\n    color: grey;\n}\n\n.status-grey:hover{\n    color: white;\n    background-color: grey !important;\n}\n\n.status-yellow{\n    border-color: orange;\n    color: orange;\n}\n\n.status-yellow:hover{\n    color: black;\n    background-color: orange !important;\n}\n.status-green{\n    border-color: green;\n    color: green;\n}\n\n.status-green:hover{\n    color: white;\n    background-color: green !important;\n}", "",{"version":3,"sources":["webpack://./src/style.css"],"names":[],"mappings":"AAAA,8BAA8B;AAC9B;IACI,aAAa;IACb,eAAe;IACf,UAAU;IACV,OAAO;IACP,MAAM;IACN,WAAW;IACX,YAAY;IACZ,oBAAoB;IACpB,iCAAiC;EACnC;;EAEA,sBAAsB;EACtB;IACE,yBAAyB;IACzB,gBAAgB;IAChB,aAAa;IACb,sBAAsB;EACxB;;EAEA;MACI,YAAY;EAChB;;AAEF;IACI,iBAAiB;IACjB,mBAAmB;AACvB;;AAEA;IACI,kBAAkB;IAClB,WAAW;AACf;;AAEA;IACI,YAAY;IACZ,iCAAiC;AACrC;;AAEA;IACI,oBAAoB;IACpB,aAAa;AACjB;;AAEA;IACI,YAAY;IACZ,mCAAmC;AACvC;AACA;IACI,mBAAmB;IACnB,YAAY;AAChB;;AAEA;IACI,YAAY;IACZ,kCAAkC;AACtC","sourcesContent":["/* /* The Modal (background) */\n#modal {\n    display: none; \n    position: fixed; \n    z-index: 1;\n    left: 0;\n    top: 0;\n    width: 100%;\n    height: 100%; \n    /* overflow: auto; */\n    background-color: rgba(0,0,0,0.4); \n  }\n  \n  /* Modal Content/Box */\n  .modal-content {\n    background-color: #fefefe;\n    margin: 15% auto;\n    padding: 20px;\n    border: 1px solid #888;\n  }\n\n  .input-add-task{\n      margin: auto;\n  }\n\n.status{\n    border: 1px solid;\n    border-radius: 10px;\n}\n\n.status-grey{\n    border-color: grey;\n    color: grey;\n}\n\n.status-grey:hover{\n    color: white;\n    background-color: grey !important;\n}\n\n.status-yellow{\n    border-color: orange;\n    color: orange;\n}\n\n.status-yellow:hover{\n    color: black;\n    background-color: orange !important;\n}\n.status-green{\n    border-color: green;\n    color: green;\n}\n\n.status-green:hover{\n    color: white;\n    background-color: green !important;\n}"],"sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -556,41 +556,83 @@ var __webpack_exports__ = {};
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ "./src/style.css");
 
-var btnMain = document.querySelector('#btn-main');
-var addBtnZone = document.querySelector('#btn-add-zone');
-btnMain.addEventListener('click', function () {
-  if (btnMain.dataset.btn === "add") {
-    btnMain.dataset.btn = "remove";
-    btnMain.className = "btn-remove";
-    btnMain.textContent = "x";
-    var divInput = document.createElement("div");
-    divInput.className = "text-center row";
-    divInput.id = "input-zone";
-    addBtnZone.after(divInput);
-    var div = document.createElement("div");
-    div.className = "col col-lg-8";
-    divInput.append(div);
-    var inputElt = document.createElement("input");
-    inputElt.type = 'text';
-    inputElt.id = "input-text";
-    inputElt.className = "form-control";
-    div.append(inputElt);
-    var div = document.createElement("div");
-    div.className = "col col-lg-2";
-    divInput.append(div);
-    var submitElt = document.createElement("button");
-    submitElt.textContent = "+";
-    submitElt.id = "submit-input";
-    submitElt.className = "col";
-    div.append(submitElt);
-  } else {
-    btnMain.dataset.btn = "add";
-    btnMain.className = "btn-add";
-    btnMain.textContent = "+";
+var todoZone = document.querySelector("#todo-zone");
+var btnOpenModal = document.querySelector("#btn-open-modal");
+var myModal = document.querySelector("#modal");
+var btnAdd = document.querySelector("#btn-add");
+var statusProgress = [["status-grey", "TODO"], ["status-yellow", "In Progress"], ["status-green", "Complete"]];
 
-    var _divInput = document.querySelector("#input-zone");
+function addTodo(text) {
+  var tr = document.createElement("tr");
+  var textTd = document.createElement("td");
+  textTd.className = "center todo";
+  textTd.textContent = text;
+  var statusTd = document.createElement("td");
+  statusTd.className = "center";
+  var statusBtn = document.createElement("button");
+  statusBtn.setAttribute("data-level", 0);
+  statusBtn.className = "btn status white " + statusProgress[0][0];
+  statusBtn.textContent = statusProgress[0][1];
+  statusBtn.addEventListener("click", function () {
+    var level = Number(statusBtn.dataset.level) + 1;
 
-    _divInput.remove();
+    if (level >= statusProgress.length) {
+      level = 0;
+    }
+
+    statusBtn.dataset.level = level;
+    statusBtn.textContent = statusProgress[statusBtn.dataset.level][1];
+    statusBtn.className = "btn status white " + statusProgress[statusBtn.dataset.level][0];
+  });
+  statusTd.append(statusBtn);
+  var editTd = document.createElement("td");
+  editTd.className = "center";
+  var buttonEdit = document.createElement("button");
+  buttonEdit.className = "btn";
+  var iconEditBtn = document.createElement("i");
+  iconEditBtn.className = "material-icons";
+  iconEditBtn.textContent = "edit";
+  buttonEdit.append(iconEditBtn);
+  editTd.append(buttonEdit);
+  var removeTd = document.createElement("td");
+  removeTd.className = "center";
+  var buttonRemove = document.createElement("button");
+  buttonRemove.className = "btn red";
+  buttonRemove.addEventListener("click", function () {
+    tr.remove();
+  });
+  var iconRemoveBtn = document.createElement("i");
+  iconRemoveBtn.className = "material-icons";
+  iconRemoveBtn.textContent = "delete";
+  buttonRemove.append(iconRemoveBtn);
+  removeTd.append(buttonRemove);
+  tr.append(textTd);
+  tr.append(statusTd);
+  tr.append(editTd);
+  tr.append(removeTd);
+  todoZone.append(tr);
+}
+
+function modal(contain) {
+  myModal.style.display = "block";
+}
+
+btnOpenModal.addEventListener("click", modal);
+document.addEventListener("click", function (event) {
+  if (event.target == myModal) {
+    myModal.style.display = "None";
+  }
+});
+btnAdd.addEventListener("click", function (event) {
+  event.preventDefault();
+  var text = document.querySelector("#input-add");
+  var textValue = text.value.trim();
+
+  if (textValue) {
+    textValue = textValue[0].toUpperCase();
+    addTodo(textValue);
+    text.value = "";
+    myModal.style.display = "None";
   }
 });
 })();

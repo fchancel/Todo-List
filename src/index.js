@@ -4,26 +4,113 @@ const todoZone = document.querySelector("#todo-zone");
 const btnOpenModal = document.querySelector("#btn-open-modal");
 const myModal = document.querySelector("#modal");
 const btnAdd = document.querySelector("#btn-add");
+const textInput = document.querySelector("#input-add");
 
+// Class for Statut Button and ContentText for Status Button
 const statusProgress = [
   ["status-grey", "TODO"],
   ["status-yellow", "In Progress"],
   ["status-green", "Complete"],
 ];
 
+// Function for create an HTML element with a class and a TextContent
+function createEltWithClass(elt, cls, txt = "") {
+  const newElt = document.createElement(elt);
+  newElt.className = cls;
+  newElt.textContent = txt;
+  return newElt;
+}
+
+// Function for Edit a task
+function editTask(textTd, buttonEdit, tr, editTd) {
+  // Hide the buton edit and the task text, for remplace by two buttons (valid and cancel edit)
+  //  and an input zone for edit text
+  textTd.style.display = "None";
+  buttonEdit.style.display = "None";
+  // Create input zone
+  const divEdit = createEltWithClass("div", "input-field col s10");
+  const iEdit = createEltWithClass("i", "material-icons prefix", "mode_edit");
+  const inputEdit = createEltWithClass(
+    "textarea",
+    "materialize-textarea",
+    textTd.textContent
+  );
+  tr.prepend(divEdit);
+  divEdit.append(iEdit);
+  divEdit.append(inputEdit);
+
+  // Create valid and cancel button
+  const btnEdit = createEltWithClass("button", "btn");
+  const iconEdit = createEltWithClass("i", "material-icons", "done");
+  const btnCancel = createEltWithClass("button", "btn red");
+  const iconCancel = createEltWithClass("i", "material-icons", "clear");
+  btnEdit.append(iconEdit);
+  btnCancel.append(iconCancel);
+  editTd.append(btnEdit);
+  editTd.append(btnCancel);
+
+  // Arrow function for cancel the edit
+  const cancelFt = () => {
+    textTd.style.display = "block";
+    buttonEdit.style.display = "inline";
+    divEdit.remove();
+    btnEdit.remove();
+    btnCancel.remove();
+  };
+
+  // Arrow function for valid edit
+  const editFt = () => {
+    textTd.textContent = inputEdit.value;
+    textTd.style.display = "block";
+    buttonEdit.style.display = "inline";
+    divEdit.remove();
+    btnEdit.remove();
+    btnCancel.remove();
+  };
+
+  //Event for valid edit
+  btnEdit.addEventListener("click", editFt);
+
+  //Event for cancel edit
+  btnCancel.addEventListener("click", cancelFt);
+
+  //Event for valid or cancel edit with keyboard
+  inputEdit.addEventListener("keydown", (event) => {
+    if (event.key === "Escape") {
+      cancelFt();
+    } else if (event.key === "Enter") {
+      editFt();
+    }
+  });
+}
+
+// Function for check if vaolid text and control modal
+function prepareAddTask(event) {
+  event.preventDefault();
+  let textValue = textInput.value.trim();
+  if (textValue) {
+    textValue = textValue[0].toUpperCase() + textValue.slice(1);
+    addTodo(textValue);
+    textInput.value = "";
+    myModal.style.display = "None";
+  }
+}
+
+// Function for add a TODO
 function addTodo(text) {
   const tr = document.createElement("tr");
-  const textTd = document.createElement("td");
-  textTd.className = "center todo";
-  textTd.textContent = text;
+  const textTd = createEltWithClass("td", "center todo", text);
 
-  const statusTd = document.createElement("td");
-  statusTd.className = "center";
-
-  const statusBtn = document.createElement("button");
+  // Manage status Zone
+  const statusTd = createEltWithClass("td", "center");
+  const statusBtn = createEltWithClass(
+    "button",
+    "btn status white " + statusProgress[0][0],
+    statusProgress[0][1]
+  );
   statusBtn.setAttribute("data-level", 0);
-  statusBtn.className = "btn status white " + statusProgress[0][0];
-  statusBtn.textContent = statusProgress[0][1];
+  statusTd.append(statusBtn);
+
   statusBtn.addEventListener("click", () => {
     let level = Number(statusBtn.dataset.level) + 1;
     if (level >= statusProgress.length) {
@@ -35,38 +122,32 @@ function addTodo(text) {
       "btn status white " + statusProgress[statusBtn.dataset.level][0];
   });
 
-  statusTd.append(statusBtn);
-
-  const editTd = document.createElement("td");
-  editTd.className = "center";
-
-  const buttonEdit = document.createElement("button");
-  buttonEdit.className = "btn";
-
-  const iconEditBtn = document.createElement("i");
-  iconEditBtn.className = "material-icons";
-  iconEditBtn.textContent = "edit";
-
+  // Manage Edit Zone
+  const editTd = createEltWithClass("td", "center");
+  const buttonEdit = createEltWithClass("button", "btn");
+  const iconEditBtn = createEltWithClass("i", "material-icons", "edit");
   buttonEdit.append(iconEditBtn);
   editTd.append(buttonEdit);
 
-  const removeTd = document.createElement("td");
-  removeTd.className = "center";
+  buttonEdit.addEventListener("click", function () {
+    boolEdit = editTask(textTd, buttonEdit, tr, editTd);
+  });
+  textTd.addEventListener("dblclick", function () {
+    boolEdit = editTask(textTd, buttonEdit, tr, editTd);
+  });
 
-  const buttonRemove = document.createElement("button");
-  buttonRemove.className = "btn red";
+  // Manage Remove Zone
+  const removeTd = createEltWithClass("td", "center");
+  const buttonRemove = createEltWithClass("button", "btn red");
+  const iconRemoveBtn = createEltWithClass("i", "material-icons", "delete");
+  buttonRemove.append(iconRemoveBtn);
+  removeTd.append(buttonRemove);
 
   buttonRemove.addEventListener("click", () => {
     tr.remove();
   });
 
-  const iconRemoveBtn = document.createElement("i");
-  iconRemoveBtn.className = "material-icons";
-  iconRemoveBtn.textContent = "delete";
-
-  buttonRemove.append(iconRemoveBtn);
-  removeTd.append(buttonRemove);
-
+  // Adding all zone in the HTML global
   tr.append(textTd);
   tr.append(statusTd);
   tr.append(editTd);
@@ -74,25 +155,41 @@ function addTodo(text) {
   todoZone.append(tr);
 }
 
-function modal(contain) {
-  myModal.style.display = "block";
+function closeModal() {
+  myModal.style.display = "None";
+  textInput.value = "";
 }
 
-btnOpenModal.addEventListener("click", modal);
+// Event for open the modal and give the focus on the Input
+btnOpenModal.addEventListener("click", () => {
+  myModal.style.display = "block";
+  textInput.focus();
+});
 
+// Event for close the Modal with the click zone
 document.addEventListener("click", (event) => {
   if (event.target == myModal) {
-    myModal.style.display = "None";
+    closeModal();
   }
 });
 
-btnAdd.addEventListener("click", (event) => {
-  event.preventDefault();
-  const text = document.querySelector("#input-add");
-  const textValue = text.value.trim();
-  if (textValue) {
-    addTodo(textValue);
-    text.value = "";
-    myModal.style.display = "None";
+// Event for clos the modal with the Escape Key
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && myModal.style.display === "block") {
+    closeModal();
   }
+});
+
+// Event for add a Task
+btnAdd.addEventListener("click", function (event) {
+  prepareAddTask(event);
+});
+
+// Event for use the keyboard with the input
+textInput.addEventListener("focus", () => {
+  textInput.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      prepareAddTask(event);
+    }
+  });
 });
