@@ -32,26 +32,30 @@ const createEltWithClass = (elt, cls, txt = "") => {
 const displayTodos = () => {
   const tbody = document.querySelector("tbody");
   tbody.innerHTML = "";
-  const todosNode = todos.map((todo, index) => {
-    return createTodo(todo, index);
-  });
+  const todosNode = todos.map((todo, index) => createTodo(todo, index));
   tbody.append(...todosNode);
+};
+
+const createTaskAndEditIfEditing = (todo, index) => {
+  const task = createInputEdit(todo);
+  const edit = createButtonEditInProgress(index, task);
+  return [task, edit];
+};
+
+const createTaskAndEditIfNotEditing = (todo, index) => {
+  const task = createEltWithClass("td", "center todo", todo.text);
+  const edit = createButtonEdit(index, task);
+  return [task, edit];
 };
 
 const createTodo = (todo, index) => {
   const tr = document.createElement("tr");
-  let task;
-  let edit;
-  if (todo["edit"]) {
-    task = createInputEdit(todo);
-    edit = createButtonEditInProgress(index, task);
-  } else {
-    task = createEltWithClass("td", "center todo", todo["text"]);
-    edit = createButtonEdit(index, task);
-  }
   const status = createButtonStatus(todo);
-
   const remove = createButtonRemove(index);
+  const createTaskAndEdit = todo.edit
+    ? createTaskAndEditIfEditing
+    : createTaskAndEditIfNotEditing;
+  const [task, edit] = createTaskAndEdit(todo, index);
 
   tr.append(task, status, edit, remove);
 
@@ -70,24 +74,19 @@ const createButtonEditInProgress = (index, task) => {
   btnCancel.append(iconCancel);
 
   btnEdit.addEventListener("click", () => {
-    todos[index]["text"] = input.value;
-    todos[index]["edit"] = false;
-    displayTodos();
+    editText(todos[index], input.value);
   });
 
   btnCancel.addEventListener("click", () => {
-    todos[index]["edit"] = false;
-    displayTodos();
+    stopEditing(todos[index]);
   });
 
   task.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+      editText(todos[index], input.value);
+    }
     if (event.key === "Escape") {
-      todos[index]["edit"] = false;
-      displayTodos();
-    } else if (event.key === "Enter") {
-      todos[index]["text"] = input.value;
-      todos[index]["edit"] = false;
-      displayTodos();
+      stopEditing(todos[index]);
     }
   });
 
@@ -95,11 +94,23 @@ const createButtonEditInProgress = (index, task) => {
   return edit;
 };
 
+const startEditing = (todo) => {
+  todo.edit = true;
+  displayTodos();
+};
+
+const stopEditing = (todo) => {
+  todo.edit = false;
+  displayTodos();
+};
+
+const editText = (todo, text) => {
+  todo.text = capitalize(text);
+  stopEditing(todo);
+};
+
 const changeStatus = (todo) => {
-  todo["status"] += 1;
-  if (todo["status"] >= statusProgress.length) {
-    todo["status"] = 0;
-  }
+  todo.status = (todo.status + 1) % statusProgress.length;
   displayTodos();
 };
 
@@ -121,8 +132,8 @@ const createButtonStatus = (todo) => {
   const status = createEltWithClass("td", "center");
   const statusButton = createEltWithClass(
     "button",
-    "btn status white " + statusProgress[todo["status"]]["cls"],
-    statusProgress[todo["status"]]["text"]
+    "btn status white " + statusProgress[todo.status].cls,
+    statusProgress[todo.status].text
   );
 
   statusButton.addEventListener("click", () => {
@@ -152,13 +163,12 @@ const createButtonEdit = (index, task) => {
   const buttonEdit = createEltWithClass("button", "btn");
   const iconEditBtn = createEltWithClass("i", "material-icons", "edit");
 
-  buttonEdit.addEventListener("click", function () {
-    todos[index]["edit"] = true;
-    displayTodos();
+  buttonEdit.addEventListener("click", () => {
+    startEditing(todos[index]);
   });
-  task.addEventListener("dblclick", function () {
-    todos[index]["edit"] = true;
-    displayTodos();
+
+  task.addEventListener("dblclick", () => {
+    startEditing(todos[index]);
   });
 
   buttonEdit.append(iconEditBtn);
@@ -173,42 +183,44 @@ const createInputEdit = (todo) => {
   const inputEdit = createEltWithClass(
     "textarea",
     "materialize-textarea",
-    todo["text"]
+    todo.text
   );
   divEdit.append(iEdit, inputEdit);
   return divEdit;
 };
 
-const checkValidTask = (text) => {
+const checkValidTask = () => {
   let textValue = inputModal.value.trim();
-  if (textValue) {
-    return true;
-  } else {
-    return false;
-  }
+  return !!textValue;
 };
 
-const closeModal = () => {
-  modal.style.display = "None";
-  inputModal.value = "";
+const listenerWithoutPropagation = (cb) => {
+  return (event) => {
+    event.preventDefault();
+    cb(event);
+  };
 };
 
-buttonAddTodo.addEventListener("click", (e) => {
-  e.preventDefault();
-  if (checkValidTask(inputModal.value)) {
-    addTodo(inputModal.value[0].toUpperCase() + inputModal.value.slice(1));
-    closeModal();
-  }
-});
+buttonAddTodo.addEventListener(
+  "click",
+  listenerWithoutPropagation(() => {
+    const text = inputModal.value;
+    if (checkValidTask(text)) {
+      addTodo(capitalize(text));
+      closeModal();
+    }
+  })
+);
 
 buttonOpenModal.addEventListener("click", () => {
-  modal.style.display = "block";
+  openModal();
   inputModal.focus();
 });
 
 inputModal.addEventListener("keydown", (e) => {
-  if (e.key === "Enter" && checkValidTask(inputModal.value)) {
-    addTodo(inputModal.value[0].toUpperCase() + inputModal.value.slice(1));
+  const text = inputModal.value;
+  if (e.key === "Enter" && checkValidTask(text)) {
+    addTodo(capitalize(text));
     closeModal();
   }
 });
@@ -220,7 +232,24 @@ document.addEventListener("click", (e) => {
 });
 
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && modal.style.display === "block") {
+  if (e.key === "Escape" && isModalDisplayed()) {
     closeModal();
   }
 });
+
+const isModalDisplayed = () => {
+  return modal.style.display === "block";
+};
+
+const openModal = () => {
+  modal.style.display = "block";
+};
+
+const closeModal = () => {
+  modal.style.display = "None";
+  inputModal.value = "";
+};
+
+const capitalize = (str) => {
+  return str[0].toUpperCase() + str.slice(1);
+};
