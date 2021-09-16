@@ -13,4 +13,4 @@ Creation of a TODO List with the sole purpose of learning pure JavaScript
 
 
 ## DEMO
-![](https://gitlab.com/fchancel/todo-list/-/raw/main/img/demo.png)
+![](https://raw.githubusercontent.com/fchancel/Todo-List/main/img/demo.png)
